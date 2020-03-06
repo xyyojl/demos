@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/form" id="form" method="POST" enctype="multipart/form-data">
+        <input type="text" name="name">
+        <input type="password" name="password">
+        <input type="file" name="file">
+        <input type="text" id="hash" name="hash">
+        <input type="submit">
+    </form>
+    <script>
+        var form = document.getElementById('form');
+        form.addEventListener('submit',function(e){
+            e.preventDefault();
+            document.getElementById('hash').value = window.location.hash;
+            var formData = new FormData(form);
+            console.log(form, formData);
+            // fetch函数根据我们提交的信息自动帮我们写content-type,如果是image的话就content-type就是image/jpeg
+            fetch('/form',{
+                method:'POST',
+                body: formData
+            })
+        })
+    </script>
+</body>
+</html>
