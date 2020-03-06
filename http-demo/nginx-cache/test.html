@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>This is content, and data is: <span id="data"></span></div>
+    <button id="button">click me</button>
+    <script>
+       var index = 0;
+       document.getElementById('button').addEventListener('click',doRequest);
+
+       function doRequest(){
+           var data = document.getElementById('data');
+           data.innerText = '';
+           fetch('/data',{
+               headers: {
+                   'X-Test-Cache': index++
+               }
+           }).then(function(res){
+               return res.text()
+           }).then(function(text){
+                data.innerText = text;
+           })
+       }
+        
+        // nginx解决跨域demo
+        var xhr = new XMLHttpRequest()
+        xhr.open('GET', '/api')
+        xhr.send()
+    </script>
+</body>
+</html>
