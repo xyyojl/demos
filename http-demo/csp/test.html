@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'; form-action 'self';">
+    <!-- 也可以使用 meta 标签实现内容安全策略，一般推荐使用 header -->
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.log('inline js')
+    </script>
+    <script src="test.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/core.js"></script>
+</body>
+</html>
