@@ -1,0 +1,10 @@
+{
+  "name": "cross-origin-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "jsonp1": "node ./jsonp/server.js",
+    "jsonp2": "http-server ./jsonp"
+  },
+  "license": "MIT"
+}
