@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "jsonp1": "node ./jsonp/server.js",
-    "jsonp2": "http-server ./jsonp"
+    "jsonp2": "http-server ./jsonp",
+    "cors1": "node ./cors/server.js",
+    "cors2": "http-server ./cors"
   },
   "license": "MIT"
 }
