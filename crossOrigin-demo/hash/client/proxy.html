@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // hash/client/proxy.html 对应 localhost:8080/proxy.html
+        // 由于两个页面不在同一个域下 IE、Chrome 不允许修改 parent.location.hash 的值，所以要借助与 
+        // localhost:8080/ 域名下的一个代理 iframe 的 proxy.html 页面
+        parent.parent.location.hash = self.location.hash.substring(1);
+    </script>
+</body>
+</html>

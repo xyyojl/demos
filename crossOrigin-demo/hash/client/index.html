@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // hash/client/index.html 对应 localhost:8080/index.html
+
+        /* 
+            网站1：localhost:8080/index.html
+            网站2：localhost:8081/data.html
+            使用 location.hash 的缺点
+                1. 数据直接暴露在 url 中
+                2. 数据容量和类型都有限等等
+        */
+        let ifr = document.createElement('iframe');
+        ifr.style.display = 'none';
+        ifr.src = 'http://localhost:8081/data.html#data';
+        document.body.appendChild(ifr);
+
+        function checkHash(){
+            try{
+                let data = location.hash ? location.hash.substring(1) : '';
+                console.log('获取到的数据是：',data);
+            }catch(e){
+
+            }
+        }
+        checkHash();
+        window.addEventListener('hashchange',function(){
+            console.log('获得的数据是：',location.hash.substring(1));
+        })
+    </script>
+</body>
+</html>
