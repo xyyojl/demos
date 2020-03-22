@@ -9,7 +9,9 @@
     "cors2": "http-server ./cors",
     "proxy": "node ./serverProxy/server.js",
     "hash1": "http-server ./hash/client/ -p 8080",
-    "hash2": "http-server ./hash/server/ -p 8081"
+    "hash2": "http-server ./hash/server/ -p 8081",
+    "name1": "http-server ./name/client/ -p 8080",
+    "name2": "http-server ./name/server/ -p 8081"
   },
   "license": "MIT"
 }
