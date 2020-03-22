@@ -11,7 +11,11 @@
     "hash1": "http-server ./hash/client/ -p 8080",
     "hash2": "http-server ./hash/server/ -p 8081",
     "name1": "http-server ./name/client/ -p 8080",
-    "name2": "http-server ./name/server/ -p 8081"
+    "name2": "http-server ./name/server/ -p 8081",
+    "postMessage1": "http-server ./postMessage/client/ -p 8080",
+    "postMessage2": "http-server ./postMessage/server/ -p 8081",
+    "domain1": "http-server ./domain/client/ -p 8080",
+    "domain2": "http-server ./domain/server/ -p 8081"
   },
   "license": "MIT"
 }

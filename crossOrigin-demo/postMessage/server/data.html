@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // postMessage/server/data.html 对应 localhost:8081/data.html
+        window.addEventListener('message',function(e){
+            if(e.source != window.parent){
+                return;
+            }
+            let data = e.data;
+            console.log('data.html 接收到的消息：',data);
+            parent.postMessage('data.html 的 data！',e.origin);
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client</title>
+</head>
+<body>
+    <iframe src="http://localhost:8081/data.html" style="display: none;"></iframe>
+    <script>
+        // postMessage/client/index.html 对应 localhost:8080/index.html
+        window.onload = function(){
+            let targetOrigin = 'http://localhost:8081/';
+            window.frames[0].postMessage('index.html 的 data', targetOrigin);
+        }
+        window.addEventListener('message',function(e){
+            console.log('index.html 接收到的消息：',e.data);
+        })
+    </script>
+</body>
+</html>
