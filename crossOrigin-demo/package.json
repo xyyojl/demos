@@ -7,7 +7,9 @@
     "jsonp2": "http-server ./jsonp",
     "cors1": "node ./cors/server.js",
     "cors2": "http-server ./cors",
-    "proxy": "node ./serverProxy/server.js"
+    "proxy": "node ./serverProxy/server.js",
+    "hash1": "http-server ./hash/client/ -p 8080",
+    "hash2": "http-server ./hash/server/ -p 8081"
   },
   "license": "MIT"
 }
