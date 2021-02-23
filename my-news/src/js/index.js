@@ -1,9 +1,24 @@
 import './imports';
 import service from '../services';
+import Header from '../components/Header';
 
-async function getNewsList() {
-    const data = await service.getNewsList('top', 10);
-    console.log(data);
-};
+; (function (doc) {
+    const oApp = doc.querySelector('#app');
+    const init = () => {
+        render();
+    };
 
-getNewsList();
+    function render() {
+        const headerTpl = Header.tpl({
+            url: '/',
+            title: '新闻头条',
+            showLeftIcon: false,
+            showRightIcon: true
+        });
+
+        oApp.innerHTML += headerTpl;
+    };
+
+    init();
+
+})(document);

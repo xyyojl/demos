@@ -62,6 +62,22 @@ module.exports = {
                 ]
             },
             {
+                test: /\.scss$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: function() {
+                                return [autoprefixer('last 5 versions')];
+                            }
+                        }
+                    },
+                    'sass-loader'
+                ]
+            },
+            {
                 test: /\.(png|ipg|jpeg|gif|ico|woff|eot|svg|ttf)/i,
                 loader: 'url-loader?limit=1024&name=img/[name]-[hash:16].[ext]'
             }
