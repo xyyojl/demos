@@ -5,6 +5,14 @@ function tplReplace(template, templateObject) {
     })
 }
 
+function scrollTop() {
+    // 为什么要异步？
+    setTimeout(() => {
+        window.scrollTop(0,0);
+    },0 )
+}
+
 export {
-    tplReplace
+    tplReplace,
+    scrollTop
 }
