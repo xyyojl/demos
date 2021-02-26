@@ -3,6 +3,8 @@ import service from '../services';
 import Header from '../components/Header';
 import NavBar from '../components/NavBar';
 import NewsList from '../components/NewsList';
+// +
+import PageLoading from '../components/PageLoading';
 import {NEWS_TYPE} from '../data';
 
 ; (function (doc) {
@@ -28,7 +30,8 @@ import {NEWS_TYPE} from '../data';
     
     function setType(type) {
         config.type = type;
-        console.log('setType', config.type);
+        config.pageNum = 0;
+        oListWrapper.innerHTML = '';
         setNewsList();
     }
 
@@ -39,15 +42,20 @@ import {NEWS_TYPE} from '../data';
         // 数据保存在哪里？
         if(newsData[type]) {
             // 做处理
+            console.log('pool');
             renderList(newsData[type][pageNum]);
             return;
         }
+        console.log('request');
+        // 添加页面加载
+        oListWrapper.innerHTML = PageLoading.tpl();
         newsData[type] = await service.getNewsList(type, count);
         // 这里为什么需要异步？
         setTimeout(() => {
+            // 去掉页面加载
             oListWrapper.innerHTML = '';
             renderList(newsData[type][pageNum]);
-        })
+        }, 1500)
     }
 
     function render() {
@@ -68,8 +76,6 @@ import {NEWS_TYPE} from '../data';
 
     function renderList(data) {
         const { pageNum } = config;
-        console.log('hi')
-        console.log(data);
         const NewsListTpl = NewsList.tpl({
             data,
             pageNum
