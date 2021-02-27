@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import NavBar from '../components/NavBar';
 import NewsList from '../components/NewsList';
 import PageLoading from '../components/PageLoading';
+import MoreLoading from '../components/MoreLoading';
 import { NEWS_TYPE } from '../data';
 
 import { scrollToBottom } from '../libs/utils';
@@ -12,6 +13,9 @@ import { scrollToBottom } from '../libs/utils';
 ; (function (doc) {
     const oApp = doc.querySelector('#app');
     let oListWrapper = null;
+    // +
+    let t = null;
+
     const config = {
         type: 'top',
         count: 10,
@@ -36,6 +40,8 @@ import { scrollToBottom } from '../libs/utils';
     function setType(type) {
         config.type = type;
         config.pageNum = 0;
+        // + 恢复
+        config.isLoading = false;
         oListWrapper.innerHTML = '';
         setNewsList();
     }
@@ -66,13 +72,23 @@ import { scrollToBottom } from '../libs/utils';
     // +
     function getMoreList() {
         // isLoading: false，代表没有锁住，true，代表锁住了
-        if (!config.isLoading) {
-            config.isLoading = true;
-            console.log('reach bottom');
-
-            setTimeout(() => {
-                config.isLoading = false;
-            }, 3000);
+        if(!config.isLoading) {
+            // 拿分页数据
+            config.pageNum++;
+            clearTimeout(t);
+            const { pageNum, type } = config;
+            console.log(newsData);
+            if(pageNum >= newsData[type].length) {
+                // 显示没有更多新闻
+                MoreLoading.add(oListWrapper, false);
+            } else {
+                config.isLoading = true;
+                MoreLoading.add(oListWrapper, true);
+                t = setTimeout(() => {
+                    // 进来的时候，setNewsList 没有执行，所以先清除定时器
+                    setNewsList();
+                }, 1000);
+            }
         }
     }
 
@@ -98,8 +114,11 @@ import { scrollToBottom } from '../libs/utils';
             data,
             pageNum
         });
-
+        // +
+        MoreLoading.remove(oListWrapper);
         oListWrapper.innerHTML += NewsListTpl;
+        // + 加载完，重新设置 config.isLoading
+        config.isLoading = false;
         // 显示图片
         NewsList.imgShow();
     }
