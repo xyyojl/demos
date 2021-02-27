@@ -3,9 +3,11 @@ import service from '../services';
 import Header from '../components/Header';
 import NavBar from '../components/NavBar';
 import NewsList from '../components/NewsList';
-// +
 import PageLoading from '../components/PageLoading';
-import {NEWS_TYPE} from '../data';
+import { NEWS_TYPE } from '../data';
+
+import { scrollToBottom } from '../libs/utils';
+
 
 ; (function (doc) {
     const oApp = doc.querySelector('#app');
@@ -13,7 +15,8 @@ import {NEWS_TYPE} from '../data';
     const config = {
         type: 'top',
         count: 10,
-        pageNum: 0
+        pageNum: 0,
+        isLoading: false
     };
 
     const newsData = {};
@@ -26,8 +29,10 @@ import {NEWS_TYPE} from '../data';
 
     function bindEvent() {
         NavBar.bindEvent(setType);
+        // + 绑定事件处理函数
+        window.addEventListener('scroll', scrollToBottom.bind(null, getMoreList), false);
     }
-    
+
     function setType(type) {
         config.type = type;
         config.pageNum = 0;
@@ -38,9 +43,9 @@ import {NEWS_TYPE} from '../data';
     // 修改
     async function setNewsList() {
         const { type, count, pageNum } = config;
-        
+
         // 数据保存在哪里？
-        if(newsData[type]) {
+        if (newsData[type]) {
             // 做处理
             console.log('pool');
             renderList(newsData[type][pageNum]);
@@ -56,6 +61,19 @@ import {NEWS_TYPE} from '../data';
             oListWrapper.innerHTML = '';
             renderList(newsData[type][pageNum]);
         }, 1500)
+    }
+
+    // +
+    function getMoreList() {
+        // isLoading: false，代表没有锁住，true，代表锁住了
+        if (!config.isLoading) {
+            config.isLoading = true;
+            console.log('reach bottom');
+
+            setTimeout(() => {
+                config.isLoading = false;
+            }, 3000);
+        }
     }
 
     function render() {
