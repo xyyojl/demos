@@ -13,7 +13,6 @@ import { scrollToBottom } from '../libs/utils';
 ; (function (doc) {
     const oApp = doc.querySelector('#app');
     let oListWrapper = null;
-    // +
     let t = null;
 
     const config = {
@@ -34,19 +33,18 @@ import { scrollToBottom } from '../libs/utils';
     function bindEvent() {
         NavBar.bindEvent(setType);
         // + 绑定事件处理函数
+        NewsList.bindEvent(oListWrapper, setCurrentNews);
         window.addEventListener('scroll', scrollToBottom.bind(null, getMoreList), false);
     }
 
     function setType(type) {
         config.type = type;
         config.pageNum = 0;
-        // + 恢复
         config.isLoading = false;
         oListWrapper.innerHTML = '';
         setNewsList();
     }
 
-    // 修改
     async function setNewsList() {
         const { type, count, pageNum } = config;
 
@@ -69,16 +67,15 @@ import { scrollToBottom } from '../libs/utils';
         }, 1500)
     }
 
-    // +
     function getMoreList() {
         // isLoading: false，代表没有锁住，true，代表锁住了
-        if(!config.isLoading) {
+        if (!config.isLoading) {
             // 拿分页数据
             config.pageNum++;
             clearTimeout(t);
             const { pageNum, type } = config;
             console.log(newsData);
-            if(pageNum >= newsData[type].length) {
+            if (pageNum >= newsData[type].length) {
                 // 显示没有更多新闻
                 MoreLoading.add(oListWrapper, false);
             } else {
@@ -90,6 +87,12 @@ import { scrollToBottom } from '../libs/utils';
                 }, 1000);
             }
         }
+    }
+    // +
+    function setCurrentNews(options) {
+        const { idx, pageNum } = options;
+        const currentNews = newsData[config.type][pageNum][idx];
+        localStorage.setItem('currentNews', JSON.stringify(currentNews));
     }
 
     function render() {
@@ -114,7 +117,6 @@ import { scrollToBottom } from '../libs/utils';
             data,
             pageNum
         });
-        // +
         MoreLoading.remove(oListWrapper);
         oListWrapper.innerHTML += NewsListTpl;
         // + 加载完，重新设置 config.isLoading

@@ -6,7 +6,7 @@ import wrapperTpl from './tpl/wrapper.tpl';
 
 import './index.scss';
 
-import { tplReplace } from '../../libs/utils';
+import { tplReplace, getItemNode } from '../../libs/utils';
 
 export default {
     name: 'NewsList',
@@ -63,5 +63,18 @@ export default {
                 img.style.opacity = '1';
             }
         })
+    },
+    bindEvent(oList, setCurrentNews) {
+        oList.addEventListener('click', this._goToDetail.bind(this, setCurrentNews), false)
+    },
+    _goToDetail(setCurrentNews) {
+        const oItem = getItemNode(arguments[1].target);
+
+        const options = {
+            idx: oItem.dataset.index,
+            pageNum: oItem.dataset.page
+        }
+        setCurrentNews(options);
+        window.location.href = `detail.html?path=${location.pathname}`;
     }
 }
