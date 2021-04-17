@@ -136,6 +136,6 @@ module.exports = {
         // 指定要使用的 host
         host: 'localhost',
         // 指定端口号以侦听以下请求
-        port: 3000
+        port: 3001
     }
 }
