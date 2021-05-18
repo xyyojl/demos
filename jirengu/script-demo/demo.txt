@@ -1,0 +1,15 @@
+if [ -d $1 ]; then
+	echo 'error: 文件夹已存在'
+	exit 1
+else
+	pwd
+	mkdir $1
+	cd $1
+	mkdir css js
+	echo 'hi html' > index.html
+	echo 'hi css' > css/style.css
+	echo 'hi js' > js/main.js
+	# touch index.html css/style.css js/main.js
+	exit 0
+fi
+ 
