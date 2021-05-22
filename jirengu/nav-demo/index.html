@@ -22,6 +22,13 @@
     <footer></footer>
 
     <script>
+        /* 
+            实现思路，按照步骤一步一步实现效果
+            往页面添加一个 div 元素 => 循环遍历 keys，添加三个 div，每个 div 下面有 10 个 kbd 标签 => 不是固定的数量 kbd 标签，遍历 keys，生成 kbd 标签 
+            => 写 CSS =>监听键盘事件 => 知道用户点击了什么键 => 拿到网址 => 打开网站 => 编辑 hash => kbd 显示“编辑”按钮 => 知道哪个 button 被点击 
+            => 拿到 key，更新 hash => 刷新页面，查看 hash => 使用 localstorage => 使用浏览器存储的 hash 覆盖原始的 hash
+        
+        */
         var keys = {
             '0': { 0: 'q', 1: 'w', 2: 'e', 3: 'r', 4: 't', 5: 'y', 6: 'u', 7: 'i', 8: 'o', 9: 'p', length: 10 },
             '1': { 0: 'a', 1: 's', 2: 'd', 3: 'f', 4: 'g', 5: 'h', 6: 'j', 7: 'k', 8: 'l', length: 9 },
@@ -30,6 +37,12 @@
         }
         var hash = {
             'q': 'qq.com', 'w': 'weibo.com', 'e': 'ele.me', 'r': 'renren.com', 't': 'tianya.com', 'y': 'youtube.com', 'u': 'uc.com', 'i': 'iqiyi.com', 'o': 'opera.com', 'p': undefined, 'a': 'acfun.tv', 's': 'sohu.com', 'z': 'zhihu.com', 'm': 'www.mcdonalds.com.cn'
+        }
+
+        var hashInLocalStorage = JSON.parse(localStorage.getItem('data'));
+        console.log('hashInLocalStorage', hashInLocalStorage);
+        if(hashInLocalStorage) {
+            hash = hashInLocalStorage;
         }
 
         // 添加对应个数的 kbd
@@ -42,15 +55,27 @@
 
             var index2 = 0;
             var row = keys[index]; // index 0 1 2
-            console.log('row', row);
             while(index2 < row['length']) {
-                // console.log(row[index2])
                 var kbd = document.createElement('kbd');
                 var span = document.createElement('span');
                 span.className = 'text';
                 span.textContent = row[index2];
-                // kbd.textContent = row[index2];
+
+                var button = document.createElement('button');
+                button.textContent = '编辑';
+                button.id = row[index2];
+
+                // 监听事件
+                button.onclick = function(e) {
+                    var key = e['target'].id;
+                    var website = prompt('请输入你的网址：');
+                    // website = website ? website : undefined;
+                    hash[key] = website;
+                    localStorage.setItem('data', JSON.stringify(hash));
+                }
+
                 kbd.appendChild(span);
+                kbd.appendChild(button);
                 div.appendChild(kbd);
                 index2 += 1;
             }
@@ -58,6 +83,11 @@
             index += 1;
         }
 
+        document.onkeypress = function(e) {
+            var key = e['key'];
+            var website = hash[key];
+            window.open('http://'+ website)
+        }
     </script>
 </body>
 
