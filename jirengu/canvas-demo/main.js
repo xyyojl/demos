@@ -15,6 +15,12 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var painting = false;
 
+// 1. 自动设置 canvas 的尺寸
+autoCanvasSize(canvas);
+
+
+
+
 //上一次的那个点
 var lastPoint = {"x": undefined, "y": undefined};
 
@@ -57,4 +63,21 @@ function drawLine(x1, y1, x2, y2) {
     context.moveTo(x1, y1); // 起点
     context.lineTo(x2, y2); // 终点
     context.stroke();
+}
+
+// 设置canvas的宽高
+function autoCanvasSize(canvas) {
+    // 首次加载设置下 canvas 的尺寸
+    setCanvasSize();
+    
+    window.onresize = function() {
+        setCanvasSize();
+    }
+
+    function setCanvasSize() {
+        var pageWidth = document.documentElement.clientWidth;
+        var pageHeight = document.documentElement.clientHeight;
+        canvas.width = pageWidth;
+        canvas.height = pageHeight;
+    }
 }
