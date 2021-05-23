@@ -12,7 +12,7 @@
 <body>
     <header></header>
     <main>
-        <div class="wrapper"  id="main"></div>
+        <div class="wrapper" id="main"></div>
         <!-- <kbd>
             <span class="text">Q</span>
             <img src="http://qq.com/favicon.ico" alt="">
@@ -24,9 +24,14 @@
     <script>
         /* 
             实现思路，按照步骤一步一步实现效果
-            往页面添加一个 div 元素 => 循环遍历 keys，添加三个 div，每个 div 下面有 10 个 kbd 标签 => 不是固定的数量 kbd 标签，遍历 keys，生成 kbd 标签 
+            往页面添加一个 div 元素 
+            => 循环遍历 keys，添加三个 div，每个 div 下面有 10 个 kbd 标签
+            => 不是固定的数量 kbd 标签，遍历 keys，生成 kbd 标签 
             => 写 CSS =>监听键盘事件 => 知道用户点击了什么键 => 拿到网址 => 打开网站 => 编辑 hash => kbd 显示“编辑”按钮 => 知道哪个 button 被点击 
             => 拿到 key，更新 hash => 刷新页面，查看 hash => 使用 localstorage => 使用浏览器存储的 hash 覆盖原始的 hash
+            => 显示对应网站的图标 =>先解决有没有的问题 => 再解决丑不丑的问题 => 没有设置网址的情况，设置默认图标 =>设置了，图标请求失败了，监听 onerror 事件 
+            => 点击编辑，更新 hash 的同时，更改图标 => 拿到 button 的哥哥元素 Element.previousSibling => 存在逻辑重复的情况 => 声明使用 var 
+            => 把东西包起来，取个名字 =>优化代码，封装成函数
         
         */
         var keys = {
@@ -41,7 +46,7 @@
 
         var hashInLocalStorage = JSON.parse(localStorage.getItem('data'));
         console.log('hashInLocalStorage', hashInLocalStorage);
-        if(hashInLocalStorage) {
+        if (hashInLocalStorage) {
             hash = hashInLocalStorage;
         }
 
@@ -51,11 +56,11 @@
             var div = document.createElement('div');
             div.className = 'row';
             main.appendChild(div);
-            
+
 
             var index2 = 0;
             var row = keys[index]; // index 0 1 2
-            while(index2 < row['length']) {
+            while (index2 < row['length']) {
                 var kbd = document.createElement('kbd');
                 var span = document.createElement('span');
                 span.className = 'text';
@@ -66,15 +71,43 @@
                 button.id = row[index2];
 
                 // 监听事件
-                button.onclick = function(e) {
+                button.onclick = function (e) {
                     var key = e['target'].id;
                     var website = prompt('请输入你的网址：');
                     // website = website ? website : undefined;
                     hash[key] = website;
+                    var img = e['target'].previousSibling;
+                    if (website) {
+                        img.src = 'http://' + website + '/favicon.ico';
+                    }
+                    img.onerror = function () {
+                        console.log('图片加载失败了')
+                        img.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png';
+                    }
+                    console.log(img);
                     localStorage.setItem('data', JSON.stringify(hash));
                 }
 
+                var img = document.createElement('img');
+                var domain = hash[row[index2]];
+                if (domain) {
+                    img.src = 'http://' + domain + '/favicon.ico';
+                } else {
+                    img.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png';
+                }
+
+                // img.src = 'http://qq.com/favicon.ico';
+                img.onerror = function () {
+                    console.log('图片加载失败了')
+                    img.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png';
+                    /* if(!hash[row[index2]]) {
+                        img.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png';
+                    } */
+                }
+                // http://qq.com/favicon.ico
+
                 kbd.appendChild(span);
+                kbd.appendChild(img);
                 kbd.appendChild(button);
                 div.appendChild(kbd);
                 index2 += 1;
@@ -83,10 +116,10 @@
             index += 1;
         }
 
-        document.onkeypress = function(e) {
+        document.onkeypress = function (e) {
             var key = e['key'];
             var website = hash[key];
-            window.open('http://'+ website)
+            window.open('http://' + website)
         }
     </script>
 </body>
