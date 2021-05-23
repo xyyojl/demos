@@ -7,30 +7,54 @@
     => 做橡皮擦，用一个变量标记用户有没有使用 => 优化代码 autoSetCanvasSize、listenToMouse 
 */
 
-var div = document.getElementById('canvas');
+
+// 按下画个圆
+// 移动再画个圆 => 线
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
 var painting = false;
-div.onmousedown = function(e) {
+
+//上一次的那个点
+var lastPoint = {"x": undefined, "y": undefined};
+
+canvas.onmousedown = function(e) {
     painting = true;
     var x = e.clientX;
     var y = e.clientY;
-    console.log(x, y);
-    var divA = document.createElement('div');
-    divA.style = `width: 6px; height: 6px; background: #000; border-radius: 50%;
-        position: absolute; top: ${y-3}px; left: ${x-3}px;`
-    div.appendChild(divA)
+    lastPoint = {"x": x, "y": y};
+    // 画圆不是必须的，辅助理解而已
+    // drawCircle(x, y, 2.5);
 }
-div.onmousemove = function(e) {
-    console.log('动了');
+canvas.onmousemove = function(e) {
     if(!painting) return;
     var x = e.clientX;
     var y = e.clientY;
-    console.log(x, y);
-    var divA = document.createElement('div');
-    divA.style = `width: 6px; height: 6px; background: #000; border-radius: 50%;
-        position: absolute; top: ${y-3}px; left: ${x-3}px;`
-    div.appendChild(divA)
+    var newPoint = {"x": x, "y": y};
+    // drawCircle(x, y, 2.5);
+    drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
+    // 更新上一次的那个点
+    lastPoint = newPoint;
 }
-div.onmouseup = function() {
-    console.log('松了');
+canvas.onmouseup = function() {
     painting = false;
+}
+
+
+// 下面是工具函数
+function drawCircle(x, y, radius) {
+    context.beginPath();
+    context.fillStyle = '#000';
+    context.arc(x, y, radius, 0, Math.PI*2);
+    context.fill();
+}
+
+// 画线
+function drawLine(x1, y1, x2, y2) {
+    context.beginPath();
+    context.strokeStyle = '#000';
+    context.lineWidth = 5;
+    context.moveTo(x1, y1); // 起点
+    context.lineTo(x2, y2); // 终点
+    context.stroke();
 }
