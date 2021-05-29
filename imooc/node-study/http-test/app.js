@@ -1,5 +1,17 @@
-// post 请求
+// 处理路由
 const http = require('http');
+const server = http.createServer((req, res) => {
+    const url = req.url;
+    const path = url.split('?')[0];
+    console.log('url: ', url);
+    console.log('path: ', path);
+    res.end(path);
+})
+server.listen(8000);
+console.log('OK'); 
+
+// post 请求
+/* const http = require('http');
 
 const server = http.createServer((req, res) => {
     if (req.method === 'POST') {
@@ -19,7 +31,7 @@ const server = http.createServer((req, res) => {
 })
 
 server.listen(8000);
-console.log('OK');
+console.log('OK'); */
 
 // get 请求
 /* const http = require('http');
