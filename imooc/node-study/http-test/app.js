@@ -1,5 +1,52 @@
-// 处理路由
+// 处理 http 请求的综合示例
 const http = require('http');
+const querystring = require('querystring');
+
+const server = http.createServer((req, res) => {
+    const method = req.method;
+    const url = req.url;
+    const path = url.split('?')[0];
+    const query = querystring.parse(url.split('?')[1]);
+
+    // 设置返回格式为 JSON
+    res.setHeader('Content-type', 'application/json');
+
+    // 返回的数据
+    const resData = {
+        method,
+        url,
+        path,
+        query
+    }
+    if (method === 'GET') {
+        res.end(
+            JSON.stringify(resData) // 返回 JSON 格式的字符串
+        )
+    }
+
+    // 使用 postmane 发送 post 请求
+    if (method === 'POST') {
+        let postData = '';
+        req.on('data', chunk => {
+            postData += chunk.toString();
+        })
+        req.on('end', chunk => {
+            resData.postData = postData;
+
+            res.end(
+                JSON.stringify(resData) // 返回 JSON 格式的字符串
+            )
+        })
+    }
+
+})
+server.listen(8000);
+console.log('OK');
+
+
+
+// 处理路由
+/* const http = require('http');
 const server = http.createServer((req, res) => {
     const url = req.url;
     const path = url.split('?')[0];
@@ -8,7 +55,7 @@ const server = http.createServer((req, res) => {
     res.end(path);
 })
 server.listen(8000);
-console.log('OK'); 
+console.log('OK');  */
 
 // post 请求
 /* const http = require('http');
@@ -18,6 +65,7 @@ const server = http.createServer((req, res) => {
         // 数据格式
         console.log('content-type', req.headers['content-type']);
         // 接收数据
+        // chunk 本身是二进制格式
         let postData = "";
         req.on('data', chunk => {
             postData += chunk.toString();
