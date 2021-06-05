@@ -28,11 +28,25 @@
                 <span class="rs">RS</span><span class="card">card</span>
             </a>
             <nav style="float: right;">
-                <ul class="clearfix">
-                    <li><a href="#">关于</a></li>
+                <ul class="clearfix menu">
+                    <li class="active"><a href="#">关于</a></li>
                     <li><a href="#">技能</a></li>
-                    <li><a href="#">作品</a></li>
-                    <li><a href="#">博客</a></li>
+                    <li>
+                        <a href="#">作品</a>
+                        <ul class="submenu">
+                            <li>作品1</li>
+                            <li>作品2</li>
+                            <li>作品3</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">博客</a>
+                        <ul class="submenu">
+                            <li>博客1</li>
+                            <li>博客2</li>
+                            <li>博客3</li>
+                        </ul>
+                    </li>
                     <li><a href="#">日历</a></li>
                     <li><a href="#">联系方式</a></li>
                     <li><a href="#">其他</a></li>
@@ -184,6 +198,27 @@
             } else {
                 // 去除 class
                 topNavBar.classList.remove('sticky');
+            }
+        }
+
+        // 鼠标移动到菜单项，添加 class
+        let aTags = document.querySelectorAll('ul.menu > li > a');
+        for(let i = 0; i < aTags.length; i++) {
+            aTags[i].onmouseenter = function(e) {
+                e.currentTarget.classList.add('active');
+                // 找到 ul 元素，添加 class
+                let ul = e.currentTarget.nextElementSibling;
+                if(ul) {
+                    ul.classList.add('active');
+                }
+            }
+            aTags[i].onmouseleave = function(e) {
+                e.currentTarget.classList.remove('active');
+                // 找到 ul 元素，移除 class
+                let ul = e.currentTarget.nextElementSibling;
+                if(ul) {
+                    ul.classList.remove('active');
+                }
             }
         }
     </script>
