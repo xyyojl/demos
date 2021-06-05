@@ -95,7 +95,7 @@ body {
     font-weight: bold;
     color: inherit;
 }
-.topNavBar nav ul li a.active::after {
+.topNavBar nav ul li.active a::after {
     content: '';
     display: block;
     position: absolute;
@@ -121,7 +121,7 @@ body {
     color: #3d4451;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
-.topNavBar .submenu.active {
+.topNavBar li.active > .submenu {
     display: block;
     animation: submenuSlide .3s;
 }
