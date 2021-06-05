@@ -19,7 +19,10 @@
 </head>
 
 <body>
-    <div class="topNavBar">
+    <div id="siteWelcome" class="site-welcome active">
+        <div class="loading"></div>
+    </div>
+    <div class="topNavBar" id="topNavBar">
         <div class="topNavBar-inner clearfix">
             <a href="#" class="logo" style="float: left;">
                 <span class="rs">RS</span><span class="card">card</span>
@@ -167,6 +170,23 @@
             </div>
         </div>
     </section>
+    <script>
+        // 移除 loading 动画
+        setTimeout(function() {
+            siteWelcome.classList.remove('active');
+        }, 500);
+
+        // 监听用户滚动
+        window.onscroll = function(e) {
+            if (window.scrollY > 0) {
+                // 添加 class
+                topNavBar.classList.add('sticky');
+            } else {
+                // 去除 class
+                topNavBar.classList.remove('sticky');
+            }
+        }
+    </script>
 </body>
 
 </html>
