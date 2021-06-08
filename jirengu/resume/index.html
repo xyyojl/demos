@@ -226,7 +226,22 @@
                 if(id === '#') return;
                 let element = document.querySelector(id);
                 let top = element.offsetTop;
-                window.scrollTo(0, top - 80);
+
+                let n = 25; // 一共动多少次
+                let duration = 500 / n; // 多长时间动一次
+                let currentTop = window.scrollY; // 当前高度
+                let targetTop = top - 80; // 目标高度
+                let distance = (targetTop - currentTop) / n; // 每次滚动的距离
+                let i = 0;
+
+                let timer = setInterval(() => {
+                    if(i === n) {
+                        window.clearInterval(timer);
+                        return;
+                    }
+                    i = i + 1;
+                    window.scrollTo(0, currentTop + distance * i);
+                }, duration);
             }
         }
     </script>
