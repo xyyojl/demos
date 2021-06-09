@@ -20,9 +20,9 @@
 </head>
 
 <body>
-    <div id="siteWelcome" class="site-welcome active">
+    <!-- <div id="siteWelcome" class="site-welcome active">
         <div class="loading"></div>
-    </div>
+    </div> -->
     <div class="topNavBar" id="topNavBar">
         <div class="topNavBar-inner clearfix">
             <a href="#" class="logo" style="float: left;">
@@ -188,10 +188,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.1.1/Tween.min.js"></script>
     <script>
         // 移除 loading 动画
-        setTimeout(function () {
+        /* setTimeout(function () {
             siteWelcome.classList.remove('active');
-        }, 500);
+        }, 500); */
 
+        // 添加 offset 类
+        let specialTags = document.querySelectorAll('[data-x]');
+        for (let i = 0; i < specialTags.length; i++) {
+            specialTags[i].classList.add('offset');
+        }
+        
+        findClosest();
         // 监听用户滚动
         window.onscroll = function (e) {
             if (window.scrollY > 0) {
@@ -217,6 +224,7 @@
             }
 
             // minIndex 就是距离窗口顶部最近的元素
+            specialTags[minIndex].classList.remove('offset');
             // 2. 根据元素的 id 获取 a 标签
             let id = specialTags[minIndex].id;
             let a = document.querySelector('a[href="#'+ id +'"]');
