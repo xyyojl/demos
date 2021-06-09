@@ -95,7 +95,8 @@ body {
     font-weight: bold;
     color: inherit;
 }
-.topNavBar nav ul li.active a::after {
+.topNavBar nav ul li.active a::after,
+.topNavBar nav ul li.highlight a::after {
     content: '';
     display: block;
     position: absolute;

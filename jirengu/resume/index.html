@@ -59,7 +59,7 @@
         <div class="mask"></div>
     </div>
     <main>
-        <div id="siteAbout" class="userCard">
+        <div data-x id="siteAbout" class="userCard">
             <div class="pictureAndText clearfix">
                 <div class="picture">
                     <img src="./img/avatar.jpg" width="299" height="347" alt="头像">
@@ -109,7 +109,7 @@
             技能：前端开发，Rails 开发，Node.js 开发
         </p>
     </main>
-    <section id="siteSkills" class="skills">
+    <section data-x id="siteSkills" class="skills">
         <h2>技能</h2>
         <ol class="clearfix">
             <li>
@@ -150,7 +150,7 @@
             </li>
         </ol>
     </section>
-    <section id="siteWorks" class="portfolio">
+    <section data-x id="siteWorks" class="portfolio">
         <h2>作品集</h2>
         <nav>
             <ol class="clearfix">
@@ -201,6 +201,34 @@
                 // 去除 class
                 topNavBar.classList.remove('sticky');
             }
+
+            // 滚动时自动高亮导航栏
+            findClosest();
+        }
+
+        function findClosest() {
+            let specialTags = document.querySelectorAll('[data-x]');
+            let minIndex = 0; 
+            for(let i = 0; i < specialTags.length; i++) {
+                if(Math.abs(specialTags[i].offsetTop - window.scrollY) < Math.abs(specialTags[minIndex].offsetTop - window.scrollY)) {
+                    // 1. 获取距离顶部最近的元素的索引
+                    minIndex = i;
+                }
+            }
+
+            // minIndex 就是距离窗口顶部最近的元素
+            // 2. 根据元素的 id 获取 a 标签
+            let id = specialTags[minIndex].id;
+            let a = document.querySelector('a[href="#'+ id +'"]');
+            // 3. 找到 a 标签的爸爸
+            let li = a.parentNode;
+            let brothersAndMe = li.parentNode.children;
+            // 遍历所有 li，去除 class
+            for (let i = 0; i < brothersAndMe.length; i++) {
+                brothersAndMe[i].classList.remove('highlight');
+            }
+            // 给对应的 li，添加 .highlight
+            li.classList.add('highlight');
         }
 
         // 鼠标移动到菜单项，添加 class
@@ -259,6 +287,10 @@
                     .start() // 开始缓动
             }
         }
+
+
+        
+
     </script>
 </body>
 
