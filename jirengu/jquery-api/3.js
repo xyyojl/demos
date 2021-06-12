@@ -1,5 +1,4 @@
-// 封装成函数
-// 一开始不知道取什么名字，就先写个 x，然后再修改
+// 命名空间方式
 function getSiblings(node) { /* API */
     var allChildren = node.parentNode.children;
     var array = { length: 0 };
@@ -16,21 +15,18 @@ function getSiblings(node) { /* API */
 function addClass(node, classes) {
     for (let key in classes) {
         var value = classes[key];
-        // 优化代码：如果存在类似的代码，就有优化的可能
-        // 优化前的代码
-        /* if (value) {
-            node.classList.add(key);
-        } else {
-            node.classList.remove(key);
-        } */
-
-        // 根据 value，得到对应的方法名
         var methodName = value ? 'add': 'remove';
         node.classList[methodName](key);
         
     }
 }
 
-console.log(getSiblings(item1));
+// 避免使用全局函数，可以改成
+// ffdom.getSiblings = function () {}
+var ffdom = {};
 var classes = { 'a': true, 'b': false, 'c': true };
-addClass(item3, classes);
+ffdom.getSiblings = getSiblings;
+ffdom.addClass = addClass;
+
+console.log(ffdom.getSiblings(item1));
+ffdom.addClass(item3, classes);
