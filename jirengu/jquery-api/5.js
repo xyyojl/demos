@@ -1,5 +1,13 @@
 // 将 Node2 改成 jQuery
-window.jQuery = function (node) {
+// 改进1：改掉 document.getElementById，可以传入字符串
+window.jQuery = function (nodeOrSelector) {
+    var node;
+    if(typeof nodeOrSelector === 'string') {
+        node = document.querySelector(nodeOrSelector)
+    } else {
+        node = nodeOrSelector;
+    }
+
     return {
         getSiblings: function () {
             var allChildren = node.parentNode.children;
@@ -25,3 +33,5 @@ window.jQuery = function (node) {
 var node2 = jQuery(item3);
 console.log(node2.getSiblings());
 node2.addClass({ 'a': true, 'b': false, 'c': true });
+
+console.log(jQuery('#item2').getSiblings());
