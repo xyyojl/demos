@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实现一个轮播</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .window {
+            width: 300px;
+            overflow: hidden;
+        }
+
+        .images {
+            display: flex;
+            align-content: flex-start;
+            transition: .3s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="window">
+        <div class="images" id="images">
+            <img src="https://fthmb.tqn.com/0ui_Zw01Ht9NHJkSBlqOIC1IH44=/960x0/filters:no_upscale()/yorkshire-terrier-583788122-581630e85f9b581c0b018a00.jpg"
+                width=300 alt="图片1" height=200>
+            <img src="https://canna-pet.com/wp-content/uploads/2017/06/20-longest-living-dog-breeds_canna-pet-e1498599846169.jpg"
+                width=300 alt="" height=200>
+            <img src="https://fthmb.tqn.com/0ui_Zw01Ht9NHJkSBlqOIC1IH44=/960x0/filters:no_upscale()/yorkshire-terrier-583788122-581630e85f9b581c0b018a00.jpg"
+                width=300 alt="" height=200>
+            <img src="https://canna-pet.com/wp-content/uploads/2017/06/20-longest-living-dog-breeds_canna-pet-e1498599846169.jpg"
+                width=300 alt="" height=200>
+        </div>
+    </div>
+    <span class="buttons">
+        <span id="p1">第1张</span>
+        <span id="p2">第2张</span>
+        <span id="p3">第3张</span>
+        <span id="p4">第4张</span>
+    </span>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="1.js"></script>
+</body>
+
+</html>
