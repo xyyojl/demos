@@ -1,22 +1,34 @@
-// 使用 setInterval 优化代码
-$('.images > img:nth-child(1)').addClass('current');
-$('.images > img:nth-child(2)').addClass('enter');
-$('.images > img:nth-child(3)').addClass('enter');
-
-let n = 1;
+let n;
+init();
 setInterval(() => {
-    // 给对应的元素移除 current 类，加上 leave 类
-    // 动画结束的时候，移除 leave 类，加上 enter 类
-    $(`.images > img:nth-child(${x(n)})`).removeClass('current').addClass('leave')
+    makeLeave(getImage(n))
         .one('transitionend', (e) => {
-            $(e.currentTarget).removeClass('leave').addClass('enter');
+            makeEnter($(e.currentTarget));
         })
     
-    // 给对应的元素移除 enter 类，加上 current 类
-    $(`.images > img:nth-child(${x(n + 1)})`).removeClass('enter').addClass('current');
+    makeCurrent(getImage(n+1));
     n += 1;
 }, 3000);
 
+
+// 工具函数
+function init() {
+    n = 1;
+    $(`.images > img:nth-child(${n})`).addClass('current')
+        .siblings().addClass('enter');
+}
+function getImage(n) {
+    return $(`.images > img:nth-child(${x(n)})`);
+}
+function makeCurrent($node) {
+    return $node.removeClass('leave enter').addClass('current');
+}
+function makeEnter($node) {
+    return $node.removeClass('current leave').addClass('enter');
+}
+function makeLeave($node) {
+    return $node.removeClass('current enter').addClass('leave');
+}
 // 处理 n，保证 n 的值为 1 2 3
 function x(n) {
     // 当 n 大于 3 的时候，做处理
