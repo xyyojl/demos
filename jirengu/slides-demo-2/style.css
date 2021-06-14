@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
 }
+* { box-sizing: border-box; }
 
 .window {
     width: 400px;
@@ -16,22 +17,23 @@
 
 .images > img {
     position: absolute;
+    top: 0;
+    width: 100%;
     transition: all 0.3s;
 }
 
-.images > img:nth-child(1) {
-    top: 0;
+/* 当前状态：在中间 */
+.images > img.current {
     left: 0;
+    transform: translateX(0);
+    z-index: 1;
 }
-.images > img:nth-child(2) {
-    top: 0;
-    left: 100%;
+/* 进入状态：在右边 */
+.images > img.enter {
+    transform: translateX(100%);
 }
-.images > img:nth-child(3) {
-    top: 0;
-    left: 100%;
-}
-.images > img.right{
-    top: 0;
-    left: 100%;
+/* 离开状态：在左边 */
+.images > img.leave {
+    transform: translateX(-100%);
+    /* z-index: 1; */
 }
