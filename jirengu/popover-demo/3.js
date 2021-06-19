@@ -10,3 +10,7 @@ $(clickMe).on('click', function() {
         })
     }, 0)
 })
+// 解决 bug，点击 checkbox 的时候，会隐藏掉浮层
+$(popover).on('click', function (e) {
+    e.stopPropagation();
+})
