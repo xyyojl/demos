@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通过动画，理解 DOM 事件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .red.active {
+            background: red;
+        }
+
+        .blue.active {
+            background: blue;
+        }
+
+        .green.active {
+            background: green;
+        }
+
+        .yellow.active {
+            background: yellow;
+        }
+
+        .orange.active {
+            background: orange;
+        }
+
+        .purple.active {
+            background: purple;
+        }
+
+        div {
+            border: 1px solid black;
+            padding: 10px;
+            transition: all 0.5s;
+            display: flex;
+            flex: 1;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .red {
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="red">
+        <div class="blue">
+            <div class="green">
+                <div class="yellow">
+                    <div class="orange">
+                        <div class="purple">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
