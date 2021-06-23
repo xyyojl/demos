@@ -23,6 +23,18 @@ $('#next').on('click', function() {
     goToSlide(current+1);
 })
 
+// 自动播放
+let timer = setInterval(() => {
+    goToSlide(current+1);
+}, 2000);
+$('.container').on('mouseenter', function () {
+    clearInterval(timer);
+}).on('mouseleave', function () {
+    timer = setInterval(() => {
+        goToSlide(current+1);
+    }, 2000);
+})
+
 // 重要逻辑
 function goToSlide(index) {
     /* 
