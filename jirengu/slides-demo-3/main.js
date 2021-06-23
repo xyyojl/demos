@@ -16,6 +16,62 @@ makeFakeSlides();
 $slides.css({ transform: 'translateX(-400px)' });
 bindEvents();
 
+$('#previous').on('click', function() {
+    goToSlide(current-1);
+})
+$('#next').on('click', function() {
+    goToSlide(current+1);
+})
+
+// 重要逻辑
+function goToSlide(index) {
+    /* 
+        特殊处理
+        1. 临界值处理
+        2. 从最后一张到第一张
+        3. 从第一张到最后一张
+    */
+    if(index > $buttons.length - 1) {
+        index = 0;
+    } else if(index < 0) {
+        index = $buttons.length - 1;
+    }
+
+    if(current === $buttons.length - 1 && index === 0) {
+        // 从最后一张到第一张
+        // 举例：current = 2
+        // $slides.css({ transform: 'translateX(-1600px)' })
+        $slides.css({ transform: `translateX(${-($buttons.length + 1) * 400}px)` })
+        .one('transitionend', function () {
+            // 障碍法
+            $slides.hide();
+            $slides.offset();
+            $slides.css({ transform: 'translateX(-400px)' })
+            $slides.css({ transform: `translateX(${-(index + 1) * 400}px)` })
+                .show();
+        })
+    } else if(current === 0 && index === $buttons.length - 1) {
+        // 从第一张到最后一张
+        // 举例：index = 2
+        console.log('从第一张到最后一张');
+        $slides.css({ transform: 'translateX(0px)' })
+        .one('transitionend', function () {
+            // 障碍法
+            $slides.hide()
+            $slides.offset();
+            $slides.css({ transform: `translateX(${-(index+1)*400}px)` })
+                .show();
+        })
+    } else {
+        // 0 1 2
+        // -400 -800 -1200
+        $slides.css({ transform: `translateX(${-(index+1)*400}px)` });
+    }
+    current = index;
+}
+
+
+
 function makeFakeSlides() {
     let $firstCopy = $images.eq(0).clone(true);
     let $lastCopy = $images.eq($images.length - 1).clone(true);
@@ -24,7 +80,14 @@ function makeFakeSlides() {
 }
 
 function bindEvents() {
-    $buttons.eq(0).on('click', function () {
+    // 给按钮绑定事件，获取索引，调用 goToSlide 方法
+    // 事件委托
+    $('#buttonWrapper').on('click', 'button', function(e) {
+        let $button = $(e.currentTarget);
+        let index = $button.index();
+        goToSlide(index);
+    })
+    /* $buttons.eq(0).on('click', function () {
         console.log('current', current);
         // 从最后一张到第一张
         if (current === 2) {
@@ -61,6 +124,6 @@ function bindEvents() {
             $slides.css({ transform: 'translateX(-1200px)' });
         }
         current = 2;
-    })
+    }) */
 }
 
