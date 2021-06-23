@@ -3,7 +3,7 @@
     1. 复制第一个和最后一个
     2. 点击按钮，进行切换，更改 ul 的 transform
     3. 优化代码
-    4.
+    4. 点击 "上一张" 或者 "下一张" 按钮，切换到对应的图片
 
 */
 
@@ -25,14 +25,15 @@ function makeFakeSlides() {
 
 function bindEvents() {
     $buttons.eq(0).on('click', function () {
+        console.log('current', current);
         // 从最后一张到第一张
         if (current === 2) {
             console.log('说明你是从最后一张到第一张');
             $slides.css({ transform: 'translateX(-1600px)' })
-                .on('transitionend', function () {
+                .one('transitionend', function () {
                     // 障碍法
-                    $slides.hide()
-                        .offset();
+                    $slides.hide();
+                    $slides.offset();
                     $slides.css({ transform: 'translateX(-400px)' })
                         .show();
                 })
@@ -49,10 +50,10 @@ function bindEvents() {
         if (current === 0) {
             console.log('说明你是从第一张到最后一张');
             $slides.css({ transform: 'translateX(0px)' })
-                .on('transitionend', function () {
+                .one('transitionend', function () {
                     // 障碍法
                     $slides.hide()
-                        .offset();
+                    $slides.offset();
                     $slides.css({ transform: 'translateX(-1200px)' })
                         .show();
                 })
@@ -62,5 +63,4 @@ function bindEvents() {
         current = 2;
     })
 }
-
 
