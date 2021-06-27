@@ -10,26 +10,26 @@
     <h5>您的账户余额是 <span id="amount">&&&amount&&&</span></h5>
     <button id="button">打钱</button>
     <script>
-        window.xxx = function(result) {
-            alert('这是 frank 写的前端代码');
-            alert(`我得到的结果是 ${result}`);
-            if (result === 'success') {
-                amount.innerText -= 1;
-            }
-        }
         button.addEventListener('click', (e) => {
             let script = document.createElement('script');
-            script.src = 'http://localhost:8002/pay?callbackName=xxx';
+            let functionName = 'frank' + parseInt(Math.random() * 10000000, 10);
+            window[functionName] = function() {
+                amount.innerText = amount.innerText - 0 - 1;
+            }
+            // script.src = 'http://localhost:8002/pay?callbackName=xxx';
+            script.src = 'http://localhost:8002/pay?callback=' + functionName;
             document.body.appendChild(script);
-            script.onload = function(e) {
+            script.onload = function(e) {  // 状态码是 200~299 则表示成功
                 console.log('成功');
                 // 移除 script 标签
                 e.currentTarget.remove();
+                delete window[functionName] // 请求完了就干掉这个随机函数
             }
-            script.onerror = function(e) {
+            script.onerror = function(e) { // 状态码大于等于 400 则表示失败
                 console.log('失败');
                 // 移除 script 标签
                 e.currentTarget.remove();
+                delete window[functionName] // 请求完了就干掉这个随机函数
             }
         })
     </script>

@@ -64,6 +64,8 @@ var server = http.createServer(function(request, response){
   } else if(path === '/pay') {
     var amount = fs.readFileSync('./db', 'utf8');
     var newAmount = amount - 1;
+    let callbackName = query.callback;
+    console.log('callbackName', callbackName);
     fs.writeFileSync('./db', newAmount);
     response.setHeader('Content-Type', 'application/javascript');
     response.statusCode = 200;
@@ -72,7 +74,7 @@ var server = http.createServer(function(request, response){
         // 耦合，想想两个齿轮，需要解耦
         // amount.innerText = amount.innerText - 1;
         // xxx.call(undefined, 'success');
-        ${query.callbackName}.call(undefined, 'success');
+        ${callbackName}.call(undefined, 'success');
     `);
     response.end();
   }else{
