@@ -55,7 +55,10 @@ var server = http.createServer(function(request, response){
     fs.writeFileSync('./db', newAmount);
     response.setHeader('Content-Type', 'application/javascript');
     response.statusCode = 200;
-    response.write('"success"');
+    response.write(`
+        alert('success');
+        window.location.reload();
+    `);
     response.end();
   } else{
     response.statusCode = 404
