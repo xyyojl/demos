@@ -71,7 +71,8 @@ var server = http.createServer(function(request, response){
         // 说明 jack.com 的后端程序员需要对 frank.com 的页面细节了解很清楚
         // 耦合，想想两个齿轮，需要解耦
         // amount.innerText = amount.innerText - 1;
-        xxx.call(undefined, 'success');
+        // xxx.call(undefined, 'success');
+        ${query.callbackName}.call(undefined, 'success');
     `);
     response.end();
   }else{

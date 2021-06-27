@@ -12,11 +12,14 @@
     <script>
         window.xxx = function(result) {
             alert('这是 frank 写的前端代码');
-            alert(`我得到的结果是${result}`);
+            alert(`我得到的结果是 ${result}`);
+            if (result === 'success') {
+                amount.innerText -= 1;
+            }
         }
         button.addEventListener('click', (e) => {
             let script = document.createElement('script');
-            script.src = 'http://localhost:8002/pay';
+            script.src = 'http://localhost:8002/pay?callbackName=xxx';
             document.body.appendChild(script);
             script.onload = function(e) {
                 console.log('成功');
