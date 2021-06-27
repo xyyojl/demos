@@ -23,7 +23,7 @@ var server = http.createServer(function(request, response){
 
   if(path === '/'){
     response.statusCode = 200
-    var string = fs.readFileSync('./index-4.html', 'utf8');
+    var string = fs.readFileSync('./index-5.html', 'utf8');
     var amount = fs.readFileSync('./db', 'utf8'); // 金钱 101
     // 将字符串 &&&amount&&& 替换成金额
     string = string.replace('&&&amount&&&', amount);
@@ -56,10 +56,25 @@ var server = http.createServer(function(request, response){
     response.setHeader('Content-Type', 'application/javascript');
     response.statusCode = 200;
     response.write(`
+        // 说明 jack.com 的后端程序员需要对 frank.com 的页面细节了解很清楚
+        // 耦合，想想两个齿轮，需要解耦
         amount.innerText = amount.innerText - 1;
     `);
     response.end();
-  } else{
+  } else if(path === '/pay') {
+    var amount = fs.readFileSync('./db', 'utf8');
+    var newAmount = amount - 1;
+    fs.writeFileSync('./db', newAmount);
+    response.setHeader('Content-Type', 'application/javascript');
+    response.statusCode = 200;
+    response.write(`
+        // 说明 jack.com 的后端程序员需要对 frank.com 的页面细节了解很清楚
+        // 耦合，想想两个齿轮，需要解耦
+        // amount.innerText = amount.innerText - 1;
+        xxx.call(undefined, 'success');
+    `);
+    response.end();
+  }else{
     response.statusCode = 404
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
     response.write('呜呜呜')
