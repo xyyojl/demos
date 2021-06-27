@@ -16,10 +16,13 @@
             document.body.appendChild(script);
             script.onload = function(e) {
                 console.log('成功');
-                // window.location.reload();
+                // 移除 script 标签
+                e.currentTarget.remove();
             }
             script.onerror = function(e) {
                 console.log('失败');
+                // 移除 script 标签
+                e.currentTarget.remove();
             }
         })
     </script>

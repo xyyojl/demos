@@ -56,8 +56,7 @@ var server = http.createServer(function(request, response){
     response.setHeader('Content-Type', 'application/javascript');
     response.statusCode = 200;
     response.write(`
-        alert('success');
-        window.location.reload();
+        amount.innerText = amount.innerText - 1;
     `);
     response.end();
   } else{
