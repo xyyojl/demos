@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用 form 表单发请求</title>
+</head>
+<body>
+    <h5>您的账户余额是 <span id="amount">&&&amount&&&</span></h5>
+    <form method="post" action="/pay-1">
+        <input type="submit" value="打钱" id="button">
+    </form>
+    <script>
+        // 点击打钱，让后端操作数据库，减一
+        /* 使用 form 表单发送请求
+        问题：每点一下，就告诉服务器，给我操作一下数据库，操作成功就返回成功，
+        操作失败就返回操作失败了，前端再刷新一下 */
+        // 用户怎么能忍受这种体验，我付了款之后，我还要去看一个 success，然后再回来，刷新下页面
+    </script>
+</body>
+</html>

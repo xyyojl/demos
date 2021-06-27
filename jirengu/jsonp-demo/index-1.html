@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击按钮，减一</title>
+</head>
+<body>
+    <h5>您的账户余额是 <span id="amount">&&&amount&&&</span></h5>
+    <button id="button">打钱</button>
+    <script>
+        // 问题现象：刷新页面，金钱还是100，我们的数据，没有长久的存储
+        // 前端页面，修改数据之后，你要告诉后端，要修改下数据库里面的数据才行，发请求 => index-2.html
+        button.addEventListener('click', (e) => {
+            let n = amount.innerText;
+            let number = parseInt(n, 10);
+            amount.innerText = number - 1;
+        })
+    </script>
+</body>
+</html>
