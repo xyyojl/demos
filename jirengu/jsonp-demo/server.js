@@ -23,7 +23,7 @@ var server = http.createServer(function(request, response){
 
   if(path === '/'){
     response.statusCode = 200
-    var string = fs.readFileSync('./index-3.html', 'utf8');
+    var string = fs.readFileSync('./index-4.html', 'utf8');
     var amount = fs.readFileSync('./db', 'utf8'); // 金钱 101
     // 将字符串 &&&amount&&& 替换成金额
     string = string.replace('&&&amount&&&', amount);
@@ -49,6 +49,14 @@ var server = http.createServer(function(request, response){
     response.write(fs.readFileSync('./yingmu.jpg'));
     // 十分重要，没有写这句代码的话，就会请求失败，比如，没有成功返回图片给浏览器
     response.end()
+  } else if(path === '/pay-3') {
+    var amount = fs.readFileSync('./db', 'utf8');
+    var newAmount = amount - 1;
+    fs.writeFileSync('./db', newAmount);
+    response.setHeader('Content-Type', 'application/javascript');
+    response.statusCode = 200;
+    response.write('"success"');
+    response.end();
   } else{
     response.statusCode = 404
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
