@@ -14,11 +14,12 @@
             let image = document.createElement('img');
             image.src = '/pay-2';
             image.onload = function() {
+                // 那要如何实现不刷新页面呢？知道打钱成功，减一
                 console.log('成功');
-                alert('成功');
+                amount.innerText = amount.innerText - 1;
             }
             image.onerror = function() {
-                alert('失败');
+                console.log('失败');
             }
     
         })
