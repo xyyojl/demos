@@ -8,12 +8,14 @@ window.jQuery = function(nodeOrSelector) {
 window.$ = window.jQuery;
 
 
-window.jQuery.ajax = function(options) {
-    let method = options.method;
+window.jQuery.ajax = function({ method, url, body, successFn, failFn}) {
+    /* let method = options.method;
     let url = options.url;
     let body = options.body;
     let successFn = options.successFn;
-    let failFn = options.failFn;
+    let failFn = options.failFn; */
+    // const { method, url, body, successFn, failFn } = options;
+
     let request = new XMLHttpRequest();
     request.open(method, url);
     request.send(body);
@@ -38,11 +40,18 @@ myButton.addEventListener('click', (e) => {
         (request) => {console.log(2);}
     ) */
     // 第二版：让用户传入有结构的参数。也就是一个对象
-    let options = {
+    /* let options = {
         url: '/xxx',
         method: 'get',
         successFn: (responseText) => {console.log(1);},
         failFn: (request) => {console.log(2);}
     };
-    window.jQuery.ajax(options);
+    window.jQuery.ajax(options); */
+    // 第三版：小技巧优化
+    window.jQuery.ajax({
+        url: '/xxx',
+        method: 'get',
+        successFn: (responseText) => {console.log(responseText);},
+        failFn: (request) => {console.log(request);}
+    });
 })
