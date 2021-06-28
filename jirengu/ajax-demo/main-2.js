@@ -8,7 +8,7 @@ window.jQuery = function(nodeOrSelector) {
 window.$ = window.jQuery;
 
 
-window.jQuery.ajax = function({ method, url, body, successFn, failFn}) {
+window.jQuery.ajax = function({ method, url, body, headers, successFn, failFn}) {
     /* let method = options.method;
     let url = options.url;
     let body = options.body;
@@ -18,6 +18,13 @@ window.jQuery.ajax = function({ method, url, body, successFn, failFn}) {
 
     let request = new XMLHttpRequest();
     request.open(method, url);
+
+    // 设置 headers
+    for(let key in headers) {
+        let value = headers[key];
+        request.setRequestHeader(key, value);
+    }
+    
     request.send(body);
     request.onreadystatechange = () => {
         if(request.readyState === 4) {
@@ -51,6 +58,10 @@ myButton.addEventListener('click', (e) => {
     window.jQuery.ajax({
         url: '/xxx',
         method: 'get',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'frank': '18'
+        },
         successFn: (responseText) => {console.log(responseText);},
         failFn: (request) => {console.log(request);}
     });
