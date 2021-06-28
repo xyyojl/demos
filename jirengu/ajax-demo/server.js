@@ -27,8 +27,8 @@ var server = http.createServer(function(request, response){
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
     response.write(string)
     response.end()
-  }else if(path==='/main-2.js'){
-    let string = fs.readFileSync('./main-2.js', 'utf8')
+  }else if(path==='/main.js'){
+    let string = fs.readFileSync('./main-3.js', 'utf8')
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
     response.write(string)
