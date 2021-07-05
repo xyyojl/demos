@@ -1,0 +1,76 @@
+* { padding: 0; margin: 0; box-sizing: border-box;}
+.clearfix::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+a {text-decoration: none; color: #0196e3;}
+ul {list-style: none;}
+body {background-color: #F2F2F2;}
+.container {
+    width: 920px;
+    margin: 0 auto;
+    text-align: center;
+}
+.container header {
+    padding: 30px 0;
+}
+.container header h1 {
+    padding-top: 20px;
+    font-size: 42px;
+    font-family: "Myriad Pro",Arial,Helvetica,sans-serif;
+    font-weight: normal;
+    color: #444;
+}
+.container header h1 span {
+    font-weight: bold;
+}
+.container header p {
+    padding-top: 15px;
+    font-size: 16px;
+    font-family: "Myriad Pro",Arial,Helvetica,sans-serif;
+}
+.container main {
+    border-radius: 4px;
+    box-shadow: 0 0 3px #aaa;
+}
+main .window {
+    width: 920px;
+    overflow: hidden;
+    box-shadow: 0 0 2px #aaa;
+}
+main .window .slides {
+    display: flex;
+    transition: all 0.5s;
+}
+main .window .slides li {
+    width: 920px;
+    height: 400px;
+}
+main .buttonWrapper {
+    width: 260px;
+    height: 45px;
+    background: #f3f3f3;
+    text-align: center;
+    margin: 0 auto;
+}
+main .buttonWrapper li {
+    float: left;
+    height: 45px;
+    padding: 10px 18px;
+    border-right: 2px solid #DEDEDE;
+}
+main .buttonWrapper li:nth-child(1){
+    border-left: 2px solid #DEDEDE;
+    padding: 10px 14px;
+}
+main .buttonWrapper li.active{
+    background-image: url('./images/active_bg.png');
+}
+
+.container footer p {
+    padding: 10px 0;
+    color: #444;
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
