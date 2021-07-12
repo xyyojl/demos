@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>方方的个人简历</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/css/swiper.min.css">
     <link rel="stylesheet" href="./style.css">
     <script src="//at.alicdn.com/t/font_451045_32zbfqegtq3t0529.js"></script>
     <style type="text/css">
@@ -173,18 +174,24 @@
                 portfolioBar.className = 'bar state-3';
             }
         </script>
-        <div class="works" style="height: 597px;">
-            <div class="big" style="top: 0; left: 0;">
-                <img src="./img/1.jpg" alt="作品1">
+        <div class="mySlides">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <img class="swiper-slide" src="./img/works/nav-page.jpg"></img>
+                    <img class="swiper-slide" src="./img/works/canvas.jpg"></img>
+                    <img class="swiper-slide" src="./img/works/apple-style-slides.jpg"></img>
+                </div>
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
             </div>
-            <div class="small" style="top: 0; right: 0;">
-                <img src="./img/2.jpg" alt="作品2">
-            </div>
-            <div class="small" style="bottom: -4px; right: 0;">
-                <img src="./img/3.jpg" alt="作品3">
-            </div>
+
+            <!-- 如果需要导航按钮 -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
+
     </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.1.1/Tween.min.js"></script>
     <script>
         // 移除 loading 动画
@@ -197,7 +204,7 @@
         for (let i = 0; i < specialTags.length; i++) {
             specialTags[i].classList.add('offset');
         }
-        
+
         findClosest();
         // 监听用户滚动
         window.onscroll = function (e) {
@@ -215,9 +222,9 @@
 
         function findClosest() {
             let specialTags = document.querySelectorAll('[data-x]');
-            let minIndex = 0; 
-            for(let i = 0; i < specialTags.length; i++) {
-                if(Math.abs(specialTags[i].offsetTop - window.scrollY) < Math.abs(specialTags[minIndex].offsetTop - window.scrollY)) {
+            let minIndex = 0;
+            for (let i = 0; i < specialTags.length; i++) {
+                if (Math.abs(specialTags[i].offsetTop - window.scrollY) < Math.abs(specialTags[minIndex].offsetTop - window.scrollY)) {
                     // 1. 获取距离顶部最近的元素的索引
                     minIndex = i;
                 }
@@ -227,7 +234,7 @@
             specialTags[minIndex].classList.remove('offset');
             // 2. 根据元素的 id 获取 a 标签
             let id = specialTags[minIndex].id;
-            let a = document.querySelector('a[href="#'+ id +'"]');
+            let a = document.querySelector('a[href="#' + id + '"]');
             // 3. 找到 a 标签的爸爸
             let li = a.parentNode;
             let brothersAndMe = li.parentNode.children;
@@ -283,7 +290,7 @@
                 let targetTop = top - 80;   // 目标高度
                 let s = targetTop - currentTop; // 路程
                 const coords = { y: currentTop } // 起始位置
-                let t = Math.abs((s/100) * 300); // 时间
+                let t = Math.abs((s / 100) * 300); // 时间
                 if (t > 500) { t = 500 }
                 const tween = new TWEEN.Tween(coords) // 起始位置
                     .to({ y: targetTop }, t) // 结束位置 和 时间
@@ -297,7 +304,21 @@
         }
 
 
-        
+        // Swiper
+        var mySwiper = new Swiper('.swiper-container', {
+            loop: true, // 循环模式选项
+
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // 如果需要前进后退按钮
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            }
+        })
 
     </script>
 </body>

@@ -337,6 +337,7 @@ section.skills.offset .progress {
 section.portfolio {
     text-align: center;
     margin-bottom: 100px;
+    max-width: 720px;
 }
 
 section.portfolio nav {
@@ -390,13 +391,22 @@ section.portfolio nav .state-3 .bar-inner {
     margin-left: 140px;
     width: 108px;
 }
-
-section.portfolio .works {
-    position: relative;
+section.portfolio .swiper-container {
+    width: 668px;
+    height: 501px;
 }
-
-section.portfolio .works .big, section.portfolio .works .small {
-    position: absolute;
+section.portfolio .swiper-button-prev,
+section.portfolio .swiper-button-next {
+    width: 64px;
+    height: 64px;
+    background-color: #fff;
+    border-radius: 50%;
+    right: 100%;
+    left: auto;
+}
+section.portfolio .swiper-button-next {
+    left: 100%;
+    right: auto;
 }
 
 /* loading 动画 */
