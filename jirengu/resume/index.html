@@ -29,8 +29,8 @@
             <a href="#" class="logo" style="float: left;">
                 <span class="rs">RS</span><span class="card">card</span>
             </a>
-            <nav style="float: right;">
-                <ul class="clearfix menu">
+            <nav style="float: right;" class="menu">
+                <ul class="clearfix">
                     <li><a href="#siteAbout">关于</a></li>
                     <li><a href="#siteSkills">技能</a></li>
                     <li>
@@ -174,7 +174,8 @@
                 portfolioBar.className = 'bar state-3';
             }
         </script>
-        <div class="mySlides">
+        <!-- 这就是 view，用户看得见的东西 -->
+        <div class="mySlides" id="mySlides">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
                     <img class="swiper-slide" src="./img/works/nav-page.jpg"></img>
@@ -193,134 +194,11 @@
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.1.1/Tween.min.js"></script>
-    <script>
-        // 移除 loading 动画
-        /* setTimeout(function () {
-            siteWelcome.classList.remove('active');
-        }, 500); */
-
-        // 添加 offset 类
-        let specialTags = document.querySelectorAll('[data-x]');
-        for (let i = 0; i < specialTags.length; i++) {
-            specialTags[i].classList.add('offset');
-        }
-
-        findClosest();
-        // 监听用户滚动
-        window.onscroll = function (e) {
-            if (window.scrollY > 0) {
-                // 添加 class
-                topNavBar.classList.add('sticky');
-            } else {
-                // 去除 class
-                topNavBar.classList.remove('sticky');
-            }
-
-            // 滚动时自动高亮导航栏
-            findClosest();
-        }
-
-        function findClosest() {
-            let specialTags = document.querySelectorAll('[data-x]');
-            let minIndex = 0;
-            for (let i = 0; i < specialTags.length; i++) {
-                if (Math.abs(specialTags[i].offsetTop - window.scrollY) < Math.abs(specialTags[minIndex].offsetTop - window.scrollY)) {
-                    // 1. 获取距离顶部最近的元素的索引
-                    minIndex = i;
-                }
-            }
-
-            // minIndex 就是距离窗口顶部最近的元素
-            specialTags[minIndex].classList.remove('offset');
-            // 2. 根据元素的 id 获取 a 标签
-            let id = specialTags[minIndex].id;
-            let a = document.querySelector('a[href="#' + id + '"]');
-            // 3. 找到 a 标签的爸爸
-            let li = a.parentNode;
-            let brothersAndMe = li.parentNode.children;
-            // 遍历所有 li，去除 class
-            for (let i = 0; i < brothersAndMe.length; i++) {
-                brothersAndMe[i].classList.remove('highlight');
-            }
-            // 给对应的 li，添加 .highlight
-            li.classList.add('highlight');
-        }
-
-        // 鼠标移动到菜单项，添加 class
-        let liTags = document.querySelectorAll('ul.menu > li');
-        for (let i = 0; i < liTags.length; i++) {
-            liTags[i].onmouseenter = function (e) {
-                e.currentTarget.classList.add('active');
-            }
-            liTags[i].onmouseleave = function (e) {
-                e.currentTarget.classList.remove('active');
-            }
-        }
-
-        function animate(time) {
-            requestAnimationFrame(animate)
-            TWEEN.update(time)
-        }
-        requestAnimationFrame(animate)
-
-
-
-        // 点击导航栏菜单项，自己滚动到对应 div
-        let aTags = document.querySelectorAll('ul.menu > li > a');
-        for (let i = 0; i < aTags.length; i++) {
-            aTags[i].onclick = function (e) {
-                // 阻止默认事件
-                e.preventDefault();
-                // 获取到 a 标签的 href 值，找到对应的元素，获取到对应元素距离顶部的高度
-                let a = e.currentTarget;
-                let id = a.getAttribute('href');
-                // 没有 id，直接跳过
-                if (id === '#') return;
-                let element = document.querySelector(id);
-                let top = element.offsetTop;
-
-                /* let n = 25; // 一共动多少次
-                let duration = 500 / n; // 多长时间动一次
-                let currentTop = window.scrollY; // 当前高度
-                let targetTop = top - 80; // 目标高度
-                let distance = (targetTop - currentTop) / n; // 每次滚动的距离
-                let i = 0; */
-
-                let currentTop = window.scrollY; // 当前高度
-                let targetTop = top - 80;   // 目标高度
-                let s = targetTop - currentTop; // 路程
-                const coords = { y: currentTop } // 起始位置
-                let t = Math.abs((s / 100) * 300); // 时间
-                if (t > 500) { t = 500 }
-                const tween = new TWEEN.Tween(coords) // 起始位置
-                    .to({ y: targetTop }, t) // 结束位置 和 时间
-                    .easing(TWEEN.Easing.Cubic.InOut) // 欢动类型
-                    .onUpdate(() => {
-                        // coords.y 已经变了
-                        window.scrollTo(0, coords.y); // 如何更新界面
-                    })
-                    .start() // 开始缓动
-            }
-        }
-
-
-        // Swiper
-        var mySwiper = new Swiper('.swiper-container', {
-            loop: true, // 循环模式选项
-
-            // 如果需要分页器
-            pagination: {
-                el: '.swiper-pagination',
-            },
-
-            // 如果需要前进后退按钮
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            }
-        })
-
-    </script>
+    <!-- 模块化 -->
+    <script src="./js/init-swiper.js"></script>
+    <script src="./js/auto-slide-up.js"></script>
+    <script src="./js/sticky-topbar.js"></script>
+    <script src="./js/smoothly-navigation.js"></script>
 </body>
 
 </html>
