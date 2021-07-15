@@ -32,6 +32,10 @@ myForm.addEventListener('submit', function(e) {
     // 获取到 content 和 name，调用方法，进行提交
     const name = myForm.querySelector('input[name=name]').value;
     const content = myForm.querySelector('textarea[name=content]').value;
+    if(name === '' || content === '') {
+        alert('想要留下的信息，请记得输入姓名和留言内容，谢谢');
+        return;
+    }
     const Message = AV.Object.extend('Message');
     const message = new Message();
     message.save({

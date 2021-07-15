@@ -27,6 +27,10 @@ ul, ol {
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
+input {
+    border: none;
+    outline: none;
+}
 
 body {
     margin: 0;
@@ -284,7 +288,7 @@ section.skills, section.portfolio {
     margin-top: 60px;
 }
 
-section.skills h2, section.portfolio h2 {
+section.skills h2, section.portfolio h2, section.message h2 {
     text-align: center;
     color: #3d4451;
     font-size: 34px;
@@ -473,4 +477,53 @@ section.portfolio .swiper-button-next {
 [data-x] {
     transform: translateY(0);
     transition: all 0.5s;
+}
+
+section.message h2 {
+    margin-bottom: 30px;
+}
+section.message ol {
+    max-width: 720px;
+    border-top: 1px solid #ddd;
+    margin: 0 auto;
+}
+section.message ol li {
+    padding: 16px;
+    border-bottom: 1px solid #ddd;
+}
+section.message form {
+    position: relative;
+    box-sizing: border-box;
+    max-width: 620px;
+    border-radius: 10px;
+    background: #f6f6f6;
+    margin: 50px auto 50px;
+}
+section.message form .container {
+    padding: 30px 50px 50px;
+}
+section.message form input[type=text],
+section.message form textarea {
+    width: 520px;
+    height: 30px;
+    border-radius: 8px;
+    text-indent: 1em;
+    margin: 15px 0;
+    border: 1px solid #ccc;
+}
+section.message form textarea {
+    height: 200px;
+    resize: none;
+    font-size: 16px;
+    outline: none;
+}
+section.message form input[type=submit] {
+    padding: 12px 18px;
+    border-radius: 5px;
+    background: #398DCB;
+    color: #fff;
+    position: absolute;
+    bottom: 10px;
+    right: 50px;
+    cursor: pointer;
 }
