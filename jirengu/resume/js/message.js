@@ -1,48 +1,26 @@
 !(function () {
-    var view = document.querySelector('section.message');
+    var view = View('section.message');
 
-    var model = {
-        init() {
-            var APP_ID = 'QQ1Nqrp88ugKFRtId9KknVKl-gzGzoHsz';
-            var APP_KEY = 'Jgi6JnSQIp2aixTwjHEi12o1';
-
-            AV.init({
-                appId: APP_ID,
-                appKey: APP_KEY
-            })
-
-        },
-        // 获取数据
-        fetch() {
-            const query = new AV.Query('Message');
-            return query.find(); // Promise 对象
-        },
-        // 保存数据
-        save(name, content) {
-            const Message = AV.Object.extend('Message');
-            const message = new Message();
-            return message.save({ // Promise 对象
-                'name': name,
-                'content': content,
-            })
-        }
-    };
-
-    var controller = {
+    var model = Model({
+        resourceName: 'Message'
+    });
+    
+    var controller = Controller({
         view: null,
         model: null,
         messageList: null,
         form: null,
         init(view, model) {
-            this.view = view;
-            this.model = model;
             this.messageList = view.querySelector('#messageList');
             this.form = view.querySelector('form');
-
-            this.model.init();
+            
             this.loadMessages();
-            this.bindEvents();
-
+            
+            // 交给 Controller 处理
+            /* this.view = view;
+            this.model = model;
+            this.model.init();
+            this.bindEvents(); */
         },
         bindEvents() {
             this.form.addEventListener('submit', function (e) {
@@ -51,7 +29,7 @@
             }.bind(this));
         },
         loadMessages() {
-            model.fetch().then(function (messages) {
+            this.model.fetch().then(function (messages) {
                 // messages 是一个数组
                 const array = messages.map(item => item.attributes);
                 // 将数据插入到页面
@@ -72,7 +50,10 @@
                 alert('想要留下的信息，请记得输入姓名和留言内容，谢谢');
                 return;
             }
-            model.save(name, content).then(function (object) {
+            this.model.save({ 
+                'name': name,
+                'content': content 
+            }).then(function (object) {
                 console.log('success');
                 // 提交成功，不刷新页面，插入一条数据即可
                 const { name, content } = object.attributes;
@@ -83,7 +64,7 @@
                 myForm.querySelector('textarea[name=content]').value = '';
             })
         }
-    };
+    })
 
     controller.init(view, model);
 }).call();
