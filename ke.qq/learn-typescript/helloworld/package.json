@@ -1,0 +1,16 @@
+{
+  "name": "helloworld",
+  "version": "1.0.0",
+  "description": "学习一门语言的必经之路，大都由 HelloWorld 开始。\r 经过本章课程中对于 TypeScript 的学习，相信大家对于 TypeScript 已经有了初步的了解，那么，是时候来写出属于 TypeScript 的 HelloWorld 啦。",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  }
+}
