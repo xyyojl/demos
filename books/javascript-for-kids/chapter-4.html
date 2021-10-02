@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>对象的用途</title>
+</head>
+<body>
+  <script>
+    // 记录欠款
+    var owedMoney = {};
+    owedMoney["Jimmy"] = 5;
+    owedMoney["Anna"] = 7;
+
+    owedMoney["Jimmy"] += 3;
+    console.log( "Jimmy", owedMoney["Jimmy"]);
+    console.log( "Jinen", owedMoney["Jinen"]);
+
+    // 保存电影信息
+    var movies = {
+      "Finding Nemo": {
+        releaseDate: 2003,
+        duration: 100,
+        actors: ["Albert Brooks", "Ellen DeGeneres", "Alexander Gould"],
+        format: "DVD"
+      },
+      "Star Wars: Episode VI - Return of the Jedi": {
+        releaseDate: 1983,
+        duration: 134,
+        actors: ["Mark Hamill", "Harrison Ford", "Carrie Fisher"],
+        format: "DVD"
+      },
+      "Harry Potter and the Goblet of Fire": {
+        releaseDate: 2005,
+        duration: 157,
+        actors: ["Daniel Radcliffe", "Emma Watson", "Rupert Grint"],
+        format: "Blu-ray"
+      }
+    }
+
+    console.log('movies', movies);
+
+    // 把新电影添加到收藏中
+    var cars = {
+      releaseDate: 2006,
+      duration: 117,
+      actors: ["Owen Wilson", "Bonnie Hunt", "Paul Newman"],
+      format: "Blu-ray"
+    }
+
+    movies["Cars"] = cars;
+
+    console.log('movies', movies);
+  </script>
+</body>
+</html>

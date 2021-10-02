@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>交互式编程</title>
+</head>
+<body>
+  <h1 id="heading">Hello World!</h1>
+  <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+  <script>
+    // 使用 setTimeout 函数延时代码
+    /* var timeUp = function() {
+      alert("Time' s up!");
+    }
+    setTimeout(timeUp, 3000); */
+
+    // 取消一个 timeout
+    /* var doHomeworkAlarm = function() {
+      alert("Hey! You need to do your homework!");
+    }
+    var timeoutId = setTimeout(doHomeworkAlarm, 10000);
+    clearTimeout(timeoutId); */
+
+    // 用 setInterval 多次调用代码 
+    /* var counter = 1;
+
+    var printMessage = function() {
+      console.log("You have been staring at your console for " + counter + " seconds");
+      counter++;
+    }
+
+    var intervalId = setInterval(printMessage, 1000);
+    clearInterval(intervalId); */
+
+    // 使用 setInterval 函数实现元素动画
+    /* var leftOffset = 0;
+    var moveHeading = function() {
+
+      $("#heading").offset({
+        left: leftOffset
+      });
+
+      leftOffset++;
+
+      if (leftOffset > 200) {
+        leftOffset = 0;
+      }
+    }
+
+    setInterval(moveHeading, 30); */
+
+    // 对用户行为作出响应
+    /* var clickHandler = function(event) {
+      console.log("Click! " + event.pageX + " " + event.pageY);
+    }
+    $("h1").click(clickHandler); */
+
+    // 鼠标移动事件
+    /* $("html").mousemove(function(event) {
+      $("#heading").offset({
+        left: event.pageX,
+        top: event.pageY
+      })
+    }) */
+
+
+    // 编程挑战
+
+    // #1：跟随点击移动
+    /* $("html").click(function(event) {
+      $("#heading").offset({
+        left: event.pageX,
+        top: event.pageY
+      })
+    }) */
+
+    // #2：创建自己的动画
+    // 右 => 下 => 左 => 上
+    // 这个代码可能有问题
+    var currentDirection = "right";
+    var leftOffset = 0;
+    var topOffset = 0;
+    var moveHeading = function() {
+
+      if (currentDirection === "right") {
+        $("#heading").offset({
+          left: leftOffset,
+          top: 0
+        });
+        leftOffset++;
+
+        if (leftOffset > 200) {
+          leftOffset = 200;
+          currentDirection = "bottom";
+        }
+
+      } else if (currentDirection === "bottom") {
+        $("#heading").offset({
+          top: topOffset,
+          left: 200
+        });
+        topOffset++;
+        if (topOffset > 200) {
+          topOffset = 200;
+          currentDirection = "left";
+        }
+
+      } else if (currentDirection === "left") {
+        $("#heading").offset({
+          left: leftOffset,
+          top: 200
+        });
+        leftOffset--;
+        if (leftOffset < 0) {
+          leftOffset = 0;
+          currentDirection = "top";
+        }
+      } else if (currentDirection === "top") {
+        $("#heading").offset({
+          top: topOffset,
+          left: 0
+        });
+        topOffset--;
+        if (topOffset < 0) {
+          topOffset = 0;
+          currentDirection = "right";
+        }
+      }
+
+    }
+
+    var intervalId = setInterval(moveHeading, 30);
+
+    // #3：用 click 取消动画
+    /* $("h1").click(function() {
+      clearInterval(intervalId);
+    }); */
+
+    // #4：创建一个 "Click the Header" 游戏
+    var clicks = 0;
+    $("h1").click(function() {
+      clearInterval(intervalId);
+      clicks++;
+
+      if(clicks > 10) {
+        $("h1").text("You Win.");
+        // clearInterval(intervalId);
+      } else {
+        intervalId = setInterval(moveHeading, 10);
+      }
+    });
+
+
+
+  </script>
+</body>
+</html>

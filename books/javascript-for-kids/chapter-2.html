@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字符串操作</title>
+</head>
+<body>
+  <script>
+    // 把 "hELlo THERE, hoW ARE yOu doINg？" 转换成 ""
+    var sillyString = "hELlo THERE, hoW ARE yOu doINg？";
+    var lowString = sillyString.toLowerCase();
+    var firstCharacter = lowString[0];
+    var firstCharacterUpper = firstCharacter.toUpperCase();
+    var restOfString = lowString.slice(1);
+    console.log(firstCharacterUpper + restOfString);
+
+    // 另外一种写法
+    var sillyString = "hELlo THERE, hoW ARE yOu doINg？";
+    console.log(sillyString[0].toUpperCase() + sillyString.slice(1).toLowerCase());
+  </script>
+</body>
+</html>

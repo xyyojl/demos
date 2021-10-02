@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>条件与循环</title>
+</head>
+<body>
+  <h1>Hello World!</h1>
+  <p>My first web page.</p>
+  <script>
+    var message = "Hello World!";
+    console.log(message);
+
+    var name = "Nicholas";
+    console.log("hello " + name);
+    if (name.length > 7) {
+      console.log("Wow, you have a REALLY long name!");
+    } else {
+      console.log("Your name isn't very long");
+    }
+
+    var lemonChicken = false;
+    var beefWithBlackBean = true;
+    var sweetAndSourPork = true;
+
+    if (lemonChicken) {
+      console.log("Great! I'm having lemon chicken!");
+    } else if (beefWithBlackBean) {
+      console.log("I'm having the beef.");
+    } else if(sweetAndSourPork) {
+      console.log("OK, I' ll have the pork.");
+    } else {
+      console.log("Well, I guess I' have the rice then.");
+    }
+
+    // 循环
+    var sheepCounted = 0;
+    while(sheepCounted < 10) {
+      console.log("I have counted " + sheepCounted + " sheep!");
+      sheepCounted++;
+    }
+    console.log("Zzzzzzzzzz");
+
+    // for 循环，通常用于设置做某件事情的次数
+    for(var sheepCounted = 0; sheepCounted < 10; sheepCounted++) {
+      console.log("I have counted " + sheepCounted + " sheep!");
+    }
+    console.log("Zzzzzzzzzz");
+
+    // 对数组和字符串使用 for 循环
+    var animals = ["lion", "Flamingo", "Polar Bear", "Boa Constrictor"];
+
+    for(var i = 0; i < animals.length; i++) {
+      console.log("This zoo contains a ", animals[i] + ".");
+    }
+
+    var name = "Nick";
+    for(var i = 0; i < name.length; i++) {
+      console.log("My name contains the letter ", name[i] + ".");
+    }
+
+    // 打印所有小于 10000 的 2 的幂
+    for(var x = 2; x < 10000; x*=2) {
+      console.log(x);
+    }
+
+    // 编程挑战
+
+    // #1: 可怕的动物
+    var animals = ["Cat", "Fish", "Lemur", "Komodo Dragon"];
+    for(var i = 0; i < animals.length; i++) {
+      animals[i] = "Awesome " + animals[i];
+    }
+    console.log('animals', animals);
+
+    // #2：随机字符串生成器
+    var alphabet = "abcdefgijklmnopqrstuvwxyz";
+    var randomString = "";
+    while(randomString.length < 6) {
+      randomString += alphabet[Math.floor(Math.random() * alphabet.length)];
+    }
+    console.log("randomString", randomString);
+
+    // #3：h4ck3rsp34k
+    var input = "javascript is awesome";
+    var output = "";
+
+    for(var i = 0; i < input.length; i++) {
+      if (input[i] === "a") {
+        output += "4";
+      } else if (input[i] === "e") {
+        output += "3";
+      } else if (input[i] === "i") {
+        output += "l";
+      } else if (input[i] === "o") {
+        output += "0";
+      } else {
+        output += input[i];
+      }
+    }
+  
+    console.log("output", output);s
+  </script>
+</body>
+</html>
