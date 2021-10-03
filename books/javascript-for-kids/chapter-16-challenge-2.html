@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>编程挑战</title>
+</head>
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+
+  <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+  <script>
+    // #2：将分数动画
+    // 定义 canvas、ctx、width 和 height 变量
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var width = canvas.width;
+    var height = canvas.height;
+
+    // 将画布划分为块
+    var blockSize = 10;
+    var widthInBlocks = width / blockSize;
+    var heightInBlocks = height / blockSize;
+
+    // 定义 score 变量
+    var score = 0;
+
+    var drawBorder = function() {
+      ctx.fillStyle = "Gray";
+      ctx.fillRect(0, 0, width, blockSize);
+      ctx.fillRect(0, height - blockSize, width, blockSize);
+      ctx.fillRect(0, 0, blockSize, height);
+      ctx.fillRect(width - blockSize, 0, blockSize, height);
+    }
+
+    var drawScore = function() {
+      ctx.font = "20px Courier";
+      ctx.fillStyle = "Black";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      ctx.fillText("Score: " + score, blockSize, blockSize);
+    }
+
+    var gameOver = function() {
+      // clearInterval(intervalId);
+      ctx.font = "60px Courier";
+      ctx.fillStyle = "Black";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("Game Over", width / 2, height / 2);
+    }
+
+    
+    setInterval(function() {
+      ctx.clearRect(0, 0, width, height);
+      drawBorder();
+      drawScore();
+      score++;
+    }, 100)
+  </script>
+  
+</body>
+</html>
