@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas 元素</title>
+</head>
+<body>
+  <canvas id="canvas" width="200" height="200"></canvas>
+  <script>
+    // We' ll fill this in text
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    // 绘制方块
+    /* var canvas = document.getElementById("canvas");
+    // 从 canvas 元素获取绘制环境，绘制环境是一个 JavaScript 对象，包含了用于在画布上绘制的所有的方法和属性
+    var ctx = canvas.getContext("2d");
+    // 绘制方块，在坐标（0, 0） 处绘制一个 10 像素 x 10 像素的矩形
+    // ctx.fillRect(0, 0, 10, 10);
+
+    for (var i = 0; i < 8; i++) {
+      ctx.fillRect(i * 10, i * 10, 10, 10);
+    }  */
+
+    // 更改绘制颜色
+    /* ctx.fillStyle = "Red";
+    ctx.fillRect(0, 0, 100, 100); */
+
+    // 绘制三个矩形
+    /* ctx.fillStyle = "Red";
+    ctx.fillRect(0, 0, 50, 100);
+    ctx.fillStyle = "green";
+    ctx.fillRect(50, 0, 50, 100);
+    ctx.fillStyle = "blue";
+    ctx.fillRect(100, 0, 50, 100); */
+
+    // 绘制矩形边框
+    /* ctx.strokeStyle = "DeepPink";
+    ctx.lineWidth = 4;
+    ctx.strokeRect(10, 10, 100, 20); */
+
+    // 绘制线条或路径
+    /* ctx.strokeStyle = "Turquoise";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(10, 10);
+    ctx.lineTo(60, 60);
+    ctx.moveTo(60, 10);
+    ctx.lineTo(10, 60);
+    ctx.stroke(); */
+
+    // 填充路径
+    /* ctx.fillStyle = "skyBlue";
+    ctx.beginPath();
+    ctx.moveTo(100, 100);
+    ctx.lineTo(100, 60);
+    ctx.lineTo(130, 30);
+    ctx.lineTo(160, 60);
+    ctx.lineTo(160, 100);
+    ctx.lineTo(100, 100);
+    ctx.fill(); */
+  
+    // 绘制圆弧和圆
+    /* ctx.lineWidth = 2;
+    ctx.strokeStyle = "green";
+
+    ctx.beginPath();
+    ctx.arc(50, 50, 20, 0, Math.PI / 2, false);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(100, 50, 20, 0, Math.PI, false);
+    ctx.stroke();
+
+    ctx.beginPath();
+    // 其圆心位于（150, 50），半径为 20px。对于这个圆，我们从 0 弧度开始并且在 Math.PI * 2 的弧度结束，绘制一个完整的圆
+    ctx.arc(150, 50, 20, 0, Math.PI * 2, false);
+    ctx.stroke(); */
+
+    // 用一个函数绘制多个圆
+    var circle = function(x, y, radius) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+      ctx.stroke();
+    }
+
+    ctx.lineWidth = 4;
+
+    ctx.strokeStyle = "Red";
+    circle(100, 100, 10);
+
+    ctx.strokeStyle = "Orange";
+    circle(100, 100, 20);
+
+    ctx.strokeStyle = "Yellow";
+    circle(100, 100, 30);
+
+    ctx.strokeStyle = "Green";
+    circle(100, 100, 40);
+
+    ctx.strokeStyle = "Blue";
+    circle(100, 100, 50);
+
+    ctx.strokeStyle = "Purple";
+    circle(100, 100, 60);
+
+  </script>
+</body>
+</html>
