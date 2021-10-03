@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>在画布上让物体移动</title>
+</head>
+<body>
+  <canvas id="canvas" width="200" height="200"></canvas>
+  <script>
+    /* 
+      所有这些动画，基本上以相同的方式工作：在特定位置绘制特定大小的一个形状，然后，更新大小或位置，然后，清除画布并再次绘制。
+      对于在一个 2D 画布上移动的元素，我们通常必须记录元素的 x 坐标和 y 坐标。
+      对于蜜蜂动画，我们从 x 和 y 坐标加上或减去一个随机数字。
+      对于弹跳的球，我们给 x 坐标和 y 坐标，加上当前的 xSpeed 或 ySpeed
+    */
+
+    // 用 JavaScript 创建画布动画，很像是创建一个定格动画。你绘制一个图形，暂停，擦除该图形，然后在一个新的位置重新绘制它
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    // 在页面上移动
+    /* var position = 0;
+
+    setInterval(function() {
+      // 清除画布
+      // 会擦除出一个 200x200 像素的矩形，该矩形从画布的左上角开始
+      ctx.clearRect(0, 0, 200, 200);
+      // 绘制矩形
+      ctx.fillRect(position, 0, 20, 20);
+
+      // 修改位置
+      position++;
+      if (position > 200) {
+        position = 0;
+      }
+    }, 30); */
+
+    // 对方块的大小实现动画
+    // 控制方块的大小
+    /* var size = 0;
+
+    setInterval(function() {
+      // 清除画布
+      // 会擦除出一个 200x200 像素的矩形，该矩形从画布的左上角开始
+      ctx.clearRect(0, 0, 200, 200);
+      // 绘制矩形
+      ctx.fillRect(0, 0, size, size);
+
+      // 修改位置
+      size++;
+      if (size > 200) {
+        size = 0;
+      }
+    }, 30); */
+
+    // 随机的蜜蜂
+    // 制作一个在画布上随机飞舞的蜜蜂。
+    // 这段动画的工作方式和移动方块的动画非常相似：设置一个位置，然后，针对动画的每个步骤，清除画布，在该位置绘制蜜蜂并且修改位置。
+    
+    // 一个新的 circle 函数
+    /* var circle = function(x, y, radius, fillCircle) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0 ,Math.PI * 2 , false);
+      if (fillCircle) {
+        // 填充圆形
+        ctx.fill();
+      } else {
+        // 画出圆
+        ctx.stroke();
+      }
+    }
+
+    // 绘制蜜蜂
+    var drawBee = function(x, y) {
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "Black";
+      ctx.fillStyle = "Gold";
+
+      // 绘制了蜜蜂的身体
+      circle(x, y, 8, true);
+      // 围绕着蜜蜂的身体绘制了一个黑色的边框
+      circle(x, y, 8, false);
+      // 绘制蜜蜂的翅膀
+      circle(x - 5, y - 11, 5, false);
+      circle(x + 5, y - 11, 5, false);
+      // 绘制蜜蜂的眼睛
+      circle(x - 2, y - 1, 2, false);
+      circle(x + 2, y - 1, 2, false);
+    }
+    // 更新蜜蜂的位置
+    // 随机地修改蜜蜂的 x 和 y 坐标，以随机地移动蜜蜂的 x 坐标和 y 坐标
+    var update = function(coordinate) {
+      var offset = Math.random() * 4 - 2;
+      coordinate += offset;
+
+      // 检查蜜蜂是否到达边界
+      if (coordinate > 200) {
+        coordinate = 200;
+      }
+      if (coordinate < 0) {
+        coordinate = 0;
+      }
+      // 返回更新后台的坐标
+      return coordinate;
+    }
+
+    // 实现嗡嗡飞的蜜蜂动画
+    var x = 100;
+    var y = 100;
+
+    setInterval(function() {
+      ctx.clearRect(0, 0, 200, 200);
+
+      drawBee(x, y);
+      x = update(x);
+      y = update(y);
+
+      ctx.strokeRect(0, 0, 200, 200);
+      
+    }, 30); */
+
+    // 弹回一个球
+    var circle = function(x, y, radius, fillCircle) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0 ,Math.PI * 2 , false);
+      if (fillCircle) {
+        // 填充圆形
+        ctx.fill();
+      } else {
+        // 画出圆
+        ctx.stroke();
+      }
+    }
+
+    // Ball 构造方法
+    var Ball = function() {
+      this.x = 100;
+      this.y = 100;
+      // 在动画的每一步中将球向左移动 2 个像素
+      // 每一帧之间，球将会斜着向下移动（3个像素）并且向左移动（2个像素）
+      this.xSpeed = -2;
+      this.ySpeed = 3;
+    }
+    // 绘制球
+    Ball.prototype.draw = function() {
+      circle(this.x, this.y, 3, true);
+    }
+    // 移动球
+    // 必须根据当前的速度来更新 x 和 y 属性
+    Ball.prototype.move = function() {
+      this.x += this.xSpeed;
+      this.y += this.ySpeed;
+    }
+    // 弹跳球
+    Ball.prototype.checkCollision = function() {
+      // 检查 x 属性是否小于 0（意味着它碰到了左边界）或大于 200（意味着碰到了有右边界），来判断球是否碰到左墙壁或右墙壁
+      if (this.x < 0 || this.x > 200) {
+        this.xSpeed = -this.xSpeed;
+      }
+      if (this.y < 0 || this.y > 200) {
+        this.ySpeed = -this.ySpeed;
+      }
+    }
+
+    // 实现球的动画
+    var ball = new Ball();
+    setInterval(function() {
+      // 清除画布
+      ctx.clearRect(0, 0, 200, 200);
+
+      // 在当前的 x 和 y 坐标绘制球
+      ball.draw();
+      // 根据球的 xSpeed 和 ySpeed 属性更新其位置
+      ball.move();
+      // 如果球碰到墙，checkCollision 方法就更新球的方向
+      ball.checkCollision();
+
+      ctx.strokeRect(0, 0, 200, 200);
+    }, 30);
+
+
+
+
+  </script>
+</body>
+</html>
